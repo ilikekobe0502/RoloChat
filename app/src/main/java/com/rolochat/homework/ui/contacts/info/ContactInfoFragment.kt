@@ -46,6 +46,7 @@ class ContactInfoFragment : BottomSheetDialogFragment() {
 
     override fun onStart() {
         super.onStart()
+        // Adjust full screen Bottom sheet dialog
         if (dialog != null) {
             val bottomSheet: View? = dialog?.findViewById(R.id.design_bottom_sheet)
             bottomSheet?.layoutParams?.height = ViewGroup.LayoutParams.MATCH_PARENT

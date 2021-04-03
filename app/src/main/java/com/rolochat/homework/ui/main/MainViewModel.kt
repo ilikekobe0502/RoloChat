@@ -15,9 +15,7 @@ class MainViewModel : BaseViewModel() {
     fun startBackExitAppTimer() {
         needCloseApp = true
         viewModelScope.launch {
-            for (second in 2 downTo 0) {
-                delay(1000)
-            }
+            delay(3000)
             needCloseApp = false
         }
     }

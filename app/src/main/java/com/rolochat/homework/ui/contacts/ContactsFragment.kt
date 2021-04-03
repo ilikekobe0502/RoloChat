@@ -22,6 +22,19 @@ class ContactsFragment : BaseFragment() {
 
     private var contactsAdapter: ContactsAdapter? = null
 
+    /**
+     * Declare Closure for recyclerView's click event
+     */
+    private val contactsFuncListener by lazy {
+        ContactsFuncListener(
+                onFavoriteClick = { contact -> viewModel.updateFavorite(contact) },
+                onItemClick = { contact ->
+                    val dialog = ContactInfoFragment.createFragment(contact)
+                    dialog.show(parentFragmentManager, dialog.tag)
+                }
+        )
+    }
+
     override fun getLayoutId(): Int {
         return R.layout.fragment_contacts
     }
@@ -32,6 +45,9 @@ class ContactsFragment : BaseFragment() {
         setupUi()
     }
 
+    /**
+     * set observe listener
+     */
     private fun setObserve() {
         viewModel.contactsResult.observe(viewLifecycleOwner, {
             when (it) {
@@ -127,16 +143,9 @@ class ContactsFragment : BaseFragment() {
         viewModel.updateFilter(FilterType.ALL)
     }
 
-    private val contactsFuncListener by lazy {
-        ContactsFuncListener(
-                onFavoriteClick = { contact -> viewModel.updateFavorite(contact) },
-                onItemClick = { contact ->
-                    val dialog = ContactInfoFragment.createFragment(contact)
-                    dialog.show(parentFragmentManager, dialog.tag)
-                }
-        )
-    }
-
+    /**
+     * set UI for display 'All'
+     */
     private fun filterAllUI() {
         text_all.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_filter_button_enable)
         text_all.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
@@ -144,6 +153,9 @@ class ContactsFragment : BaseFragment() {
         text_starred.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
     }
 
+    /**
+     * set UI for display 'Starred'
+     */
     private fun filterStarredUI() {
         text_all.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_filter_button_disable)
         text_all.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))

@@ -19,16 +19,19 @@ class ContactsViewModel @ViewModelInject constructor(
         private var roloDbRepository: RoloDbRepository
 ) : BaseViewModel() {
 
-    private val _contactsResult = MutableLiveData<ApiResult<List<Contact>?>>()
+    private val _contactsResult = MutableLiveData<ApiResult<List<Contact>?>>() // All Contacts liveData
     val contactsResult: LiveData<ApiResult<List<Contact>?>> = _contactsResult
 
-    private val _starredContactsResult = MutableLiveData<ApiResult<List<Contact>?>>()
+    private val _starredContactsResult = MutableLiveData<ApiResult<List<Contact>?>>() // Starred Contacts liveData
     val starredContactsResult: LiveData<ApiResult<List<Contact>?>> = _starredContactsResult
 
-    private val _currentFilterResult = MutableLiveData<FilterType>()
+    private val _currentFilterResult = MutableLiveData<FilterType>() // Current display type
     val currentFilterResult: LiveData<FilterType> = _currentFilterResult
 
 
+    /**
+     * Get all Contacts
+     */
     fun getAllContacts() {
         viewModelScope.launch {
             roloRepository.getContacts()
@@ -39,6 +42,9 @@ class ContactsViewModel @ViewModelInject constructor(
         }
     }
 
+    /**
+     * Get starred Contacts
+     */
     fun getStarredContacts() {
         viewModelScope.launch {
             roloRepository.getStarredContacts()
@@ -51,13 +57,20 @@ class ContactsViewModel @ViewModelInject constructor(
         }
     }
 
-
+    /**
+     * Update Favorite state
+     * @param contact: Contact data,
+     */
     fun updateFavorite(contact: Contact) {
         viewModelScope.launch(Dispatchers.IO) {
             roloDbRepository.updateContactsData(contact)
         }
     }
 
+    /**
+     * Update current Filter state
+     * @param type: The type you want to switch
+     */
     fun updateFilter(type: FilterType) {
         if (_currentFilterResult.value != type)
             _currentFilterResult.value = type

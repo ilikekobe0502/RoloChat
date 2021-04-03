@@ -9,9 +9,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Company(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    var id: Long = 0,
     @ColumnInfo
     @SerializedName("bs")
     val bs: String,

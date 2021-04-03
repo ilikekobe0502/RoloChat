@@ -20,8 +20,6 @@ class ContactsAdapter(private val contactsFuncListener: ContactsFuncListener
 
     var data: ArrayList<Contact> = ArrayList()
 
-    companion object {}
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_contact, parent, false)
@@ -37,7 +35,7 @@ class ContactsAdapter(private val contactsFuncListener: ContactsFuncListener
                 contactsFuncListener.onItemClick(item)
             }
 
-            var requestOptions = RequestOptions()
+            val requestOptions = RequestOptions()
             requestOptions.placeholder(R.drawable.ic_person_24)
                     .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                     .error(R.drawable.ic_person_24)
