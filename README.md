@@ -1,4 +1,4 @@
-# Rolo Chat Homework
+# Rolo Chat MVVM sample
 
 Architecture & 3th-party
  - Kotlin
